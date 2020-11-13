@@ -15,7 +15,6 @@ import (
 
 	// stackdriver "github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace"
 	"github.com/honeycombio/opentelemetry-exporter-go/honeycomb"
-	"go.opentelemetry.io/otel/exporters/trace/jaeger"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 
 	"go.opentelemetry.io/otel"
@@ -73,21 +72,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// jaeger exporter
-	jaegerEndpoint, _ := os.LookupEnv("JAEGER_ENDPOINT")
-	jExporter, err := jaeger.NewRawExporter(
-		jaeger.WithCollectorEndpoint(jaegerEndpoint),
-		jaeger.WithProcess(jaeger.Process{
-			ServiceName: serviceName,
-		}),
-	)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	tp := sdktrace.NewTracerProvider(sdktrace.WithConfig(sdktrace.Config{DefaultSampler: sdktrace.AlwaysSample()}),
-		sdktrace.WithSyncer(std), sdktrace.WithSyncer(hny),
-		sdktrace.WithSyncer(jExporter)) // , sdktrace.WithSyncer(sdExporter))
+		sdktrace.WithSyncer(std),
+		sdktrace.WithSyncer(hny),
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
