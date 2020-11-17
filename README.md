@@ -14,7 +14,7 @@ Get your API key via https://ui.honeycomb.io/account after signing up for Honeyc
 
 ## Make a request
 
-Now that the app is running, you should be able to make a request:
+Once you get the app running you can make a request at the root:
 
 ```console
 $ curl localhost:3000
