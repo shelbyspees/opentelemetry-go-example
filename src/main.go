@@ -52,7 +52,7 @@ func main() {
 
 	// honeycomb exporter
 	apikey, _ := os.LookupEnv("HNY_KEY")
-	dataset, _ := "kubecon2020"
+	dataset, _ := "srecon2020"
 	hny, err := honeycomb.NewExporter(
 		honeycomb.Config{
 			APIKey: apikey,
